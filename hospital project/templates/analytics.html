@@ -1,0 +1,451 @@
+{% extends "base.html" %}
+
+{% block title %}
+Hospital Analytics
+{% endblock %}
+
+
+{% block content %}
+
+<h1>
+    Hospital Performance Analytics
+</h1>
+
+
+<!-- =====================================================
+     TOTAL APPOINTMENTS
+====================================================== -->
+
+<div class="card">
+
+    <h3>
+        Total Appointments Analysed
+    </h3>
+
+    <div class="number">
+
+        {{ total_appointments }}
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ACTION BUTTONS
+====================================================== -->
+
+<div class="actions">
+
+    <a
+        href="{{ url_for('export_analytics_csv') }}"
+        class="btn btn-success"
+    >
+        Export CSV
+    </a>
+
+
+    <a
+        href="{{ url_for('export_analytics_excel') }}"
+        class="btn btn-success"
+    >
+        Export Excel
+    </a>
+
+
+    <a
+        href="{{ url_for('upload_analytics') }}"
+        class="btn"
+    >
+        Upload CSV
+    </a>
+
+</div>
+
+
+<!-- =====================================================
+     DIAGNOSIS CHART
+====================================================== -->
+
+<div class="chart-container">
+
+    <h2>
+        Most Common Diagnoses
+    </h2>
+
+    <canvas
+        id="diagnosisChart"
+    ></canvas>
+
+</div>
+
+
+<!-- =====================================================
+     STATUS CHART
+====================================================== -->
+
+<div class="chart-container">
+
+    <h2>
+        Appointment Status Distribution
+    </h2>
+
+    <canvas
+        id="statusChart"
+    ></canvas>
+
+</div>
+
+
+<!-- =====================================================
+     RECOVERY CHART
+====================================================== -->
+
+<div class="chart-container">
+
+    <h2>
+        Average Recovery Time
+    </h2>
+
+    <canvas
+        id="recoveryChart"
+    ></canvas>
+
+</div>
+
+
+<!-- =====================================================
+     TREND CHART
+====================================================== -->
+
+<div class="chart-container">
+
+    <h2>
+        Appointment Trends
+    </h2>
+
+    <canvas
+        id="trendChart"
+    ></canvas>
+
+</div>
+
+
+<!-- =====================================================
+     DOCTOR PERFORMANCE
+====================================================== -->
+
+<h2>
+    Doctor Performance Report
+</h2>
+
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>
+                Doctor
+            </th>
+
+            <th>
+                Patients Treated
+            </th>
+
+            <th>
+                Recovered
+            </th>
+
+            <th>
+                Recovery Rate (%)
+            </th>
+
+        </tr>
+
+    </thead>
+
+
+    <tbody>
+
+        {% for doctor in doctor_data %}
+
+        <tr>
+
+            <td>
+                {{ doctor.doctor }}
+            </td>
+
+            <td>
+                {{ doctor.patients_treated }}
+            </td>
+
+            <td>
+                {{ doctor.recovered }}
+            </td>
+
+            <td>
+                {{ doctor.recovery_rate }}%
+            </td>
+
+        </tr>
+
+
+        {% else %}
+
+        <tr>
+
+            <td colspan="4">
+
+                No doctor performance data available.
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+
+<!-- =====================================================
+     CHART.JS
+====================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+    /* =====================================================
+       DATA FROM FLASK
+    ===================================================== */
+
+    const diagnosisData =
+        {{ diagnosis_data | default({}) | tojson }};
+
+
+    const statusData =
+        {{ status_data | default({}) | tojson }};
+
+
+    const recoveryData =
+        {{ recovery_data | default({}) | tojson }};
+
+
+    const trendData =
+        {{ trend_data | default({}) | tojson }};
+
+
+
+    /* =====================================================
+       DIAGNOSIS CHART
+    ===================================================== */
+
+    new Chart(
+
+        document.getElementById(
+            "diagnosisChart"
+        ),
+
+        {
+
+            type: "bar",
+
+            data: {
+
+                labels:
+                    Object.keys(
+                        diagnosisData
+                    ),
+
+                datasets: [
+
+                    {
+
+                        label:
+                            "Number of Cases",
+
+                        data:
+                            Object.values(
+                                diagnosisData
+                            )
+
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true
+
+            }
+
+        }
+
+    );
+
+
+
+    /* =====================================================
+       STATUS CHART
+    ===================================================== */
+
+    new Chart(
+
+        document.getElementById(
+            "statusChart"
+        ),
+
+        {
+
+            type: "pie",
+
+            data: {
+
+                labels:
+                    Object.keys(
+                        statusData
+                    ),
+
+                datasets: [
+
+                    {
+
+                        label:
+                            "Status",
+
+                        data:
+                            Object.values(
+                                statusData
+                            )
+
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true
+
+            }
+
+        }
+
+    );
+
+
+
+    /* =====================================================
+       RECOVERY CHART
+    ===================================================== */
+
+    new Chart(
+
+        document.getElementById(
+            "recoveryChart"
+        ),
+
+        {
+
+            type: "bar",
+
+            data: {
+
+                labels:
+                    Object.keys(
+                        recoveryData
+                    ),
+
+                datasets: [
+
+                    {
+
+                        label:
+                            "Average Recovery Days",
+
+                        data:
+                            Object.values(
+                                recoveryData
+                            )
+
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true
+
+            }
+
+        }
+
+    );
+
+
+
+    /* =====================================================
+       APPOINTMENT TREND CHART
+    ===================================================== */
+
+    new Chart(
+
+        document.getElementById(
+            "trendChart"
+        ),
+
+        {
+
+            type: "line",
+
+            data: {
+
+                labels:
+                    Object.keys(
+                        trendData
+                    ),
+
+                datasets: [
+
+                    {
+
+                        label:
+                            "Appointments",
+
+                        data:
+                            Object.values(
+                                trendData
+                            ),
+
+                        fill: false
+
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true
+
+            }
+
+        }
+
+    );
+
+</script>
+
+
+{% endblock %}

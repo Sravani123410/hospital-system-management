@@ -1,0 +1,75 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}Appointment Details{% endblock %}
+
+{% block content %}
+
+<h1>Appointment Details</h1>
+
+<div class="detail-box">
+
+    <p>
+        <strong>Appointment ID:</strong>
+        {{ appointment.id }}
+    </p>
+
+    <p>
+        <strong>Patient:</strong>
+        {{ appointment.patient.name }}
+    </p>
+
+    <p>
+        <strong>Doctor:</strong>
+        {{ appointment.doctor.name }}
+    </p>
+
+    <p>
+        <strong>Specialization:</strong>
+        {{ appointment.doctor.specialization }}
+    </p>
+
+    <p>
+        <strong>Date:</strong>
+        {{ appointment.date }}
+    </p>
+
+    <p>
+        <strong>Diagnosis:</strong>
+        {{ appointment.diagnosis }}
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+        {{ appointment.status }}
+    </p>
+
+    {% if appointment.recovery_date %}
+
+    <p>
+        <strong>Recovery Date:</strong>
+        {{ appointment.recovery_date }}
+    </p>
+
+    {% endif %}
+
+</div>
+
+<br>
+
+<a
+    href="{{ url_for('edit_appointment', id=appointment.id) }}"
+    class="btn btn-warning"
+>
+    Edit Appointment
+</a>
+
+<a
+    href="{{ url_for('appointments') }}"
+    class="btn"
+>
+    Back
+</a>
+
+{% endblock %}
+```

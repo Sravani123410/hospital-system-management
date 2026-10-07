@@ -1,0 +1,121 @@
+```html
+{% extends "base.html" %}
+
+{% if patient %}
+    {% set page_title = "Edit Patient" %}
+{% else %}
+    {% set page_title = "Add Patient" %}
+{% endif %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ page_title }}</h1>
+
+<form
+    method="POST"
+    action="{% if patient %}
+                {{ url_for('update_patient', id=patient.id) }}
+            {% else %}
+                {{ url_for('create_patient') }}
+            {% endif %}"
+>
+
+    {% if patient %}
+        <input
+            type="hidden"
+            name="_method"
+            value="PUT"
+        >
+    {% endif %}
+
+    <label>Name</label>
+
+    <input
+        type="text"
+        name="name"
+        value="{{ patient.name if patient else '' }}"
+        required
+    >
+
+    <label>Age</label>
+
+    <input
+        type="number"
+        name="age"
+        min="1"
+        value="{{ patient.age if patient else '' }}"
+        required
+    >
+
+    <label>Gender</label>
+
+    <select name="gender" required>
+
+        <option value="">
+            Select Gender
+        </option>
+
+        <option
+            value="Male"
+            {% if patient and patient.gender == "Male" %}
+                selected
+            {% endif %}
+        >
+            Male
+        </option>
+
+        <option
+            value="Female"
+            {% if patient and patient.gender == "Female" %}
+                selected
+            {% endif %}
+        >
+            Female
+        </option>
+
+        <option
+            value="Other"
+            {% if patient and patient.gender == "Other" %}
+                selected
+            {% endif %}
+        >
+            Other
+        </option>
+
+    </select>
+
+    <label>Contact</label>
+
+    <input
+        type="text"
+        name="contact"
+        value="{{ patient.contact if patient else '' }}"
+        required
+    >
+
+    <br><br>
+
+    <button
+        type="submit"
+        class="btn btn-success"
+    >
+        {% if patient %}
+            Update Patient
+        {% else %}
+            Add Patient
+        {% endif %}
+    </button>
+
+    <a
+        href="{{ url_for('patients') }}"
+        class="btn"
+    >
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}
+```

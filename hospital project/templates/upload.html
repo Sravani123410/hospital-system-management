@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}
+Upload CSV
+{% endblock %}
+
+
+{% block content %}
+
+<h1>
+    Upload Appointment CSV
+</h1>
+
+
+<div class="card">
+
+    <form
+        method="POST"
+        action="{{ url_for('upload_analytics') }}"
+        enctype="multipart/form-data"
+    >
+
+        <label>
+            Select CSV File
+        </label>
+
+        <br><br>
+
+        <input
+            type="file"
+            name="file"
+            accept=".csv"
+            required
+        >
+
+        <br><br>
+
+        <button
+            type="submit"
+            class="btn btn-success"
+        >
+            Upload CSV
+        </button>
+
+    </form>
+
+</div>
+
+
+<!-- =====================================================
+     UPLOADED DATA
+====================================================== -->
+
+{% if columns %}
+
+<br>
+
+<h2>
+    Uploaded Data
+</h2>
+
+
+<div class="table-container">
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                {% for column in columns %}
+
+                <th>
+                    {{ column }}
+                </th>
+
+                {% endfor %}
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            {% for row in rows %}
+
+            <tr>
+
+                {% for column in columns %}
+
+                <td>
+                    {{ row[column] }}
+                </td>
+
+                {% endfor %}
+
+            </tr>
+
+            {% else %}
+
+            <tr>
+
+                <td
+                    colspan="{{ columns|length }}"
+                >
+                    No data available in the uploaded CSV.
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endif %}
+
+
+<br>
+
+
+<a
+    href="{{ url_for('analytics') }}"
+    class="btn"
+>
+    Back to Analytics
+</a>
+
+
+{% endblock %}

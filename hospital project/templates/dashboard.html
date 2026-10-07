@@ -1,0 +1,67 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h1>Hospital Dashboard</h1>
+
+<p>
+    Welcome to the Hospital Patient Record and Treatment Tracking System.
+</p>
+
+<div class="cards">
+
+    <div class="card">
+        <h3>Total Patients</h3>
+        <div class="number">
+            {{ patient_count }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Total Doctors</h3>
+        <div class="number">
+            {{ doctor_count }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Appointments</h3>
+        <div class="number">
+            {{ appointment_count }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Recovered</h3>
+        <div class="number">
+            {{ recovered_count }}
+        </div>
+    </div>
+
+</div>
+
+<div class="actions">
+
+    <a href="{{ url_for('new_patient') }}" class="btn">
+        + Add Patient
+    </a>
+
+    <a href="{{ url_for('new_doctor') }}" class="btn">
+        + Add Doctor
+    </a>
+
+    <a href="{{ url_for('new_appointment') }}" class="btn">
+        + Schedule Appointment
+    </a>
+
+    <a href="{{ url_for('analytics') }}" class="btn">
+        View Analytics
+    </a>
+
+</div>
+
+{% endblock %}
+```

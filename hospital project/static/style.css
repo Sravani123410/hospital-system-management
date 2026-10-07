@@ -1,0 +1,470 @@
+/* ================================
+   HOSPITAL MANAGEMENT SYSTEM
+   Main Stylesheet
+================================ */
+
+/* ---------- Global ---------- */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #333;
+    line-height: 1.5;
+}
+
+a {
+    color: #2878a8;
+}
+
+h1,
+h2,
+h3 {
+    color: #16324f;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+
+/* ---------- Container ---------- */
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+
+/* ---------- Navbar ---------- */
+
+.navbar {
+    background: #16324f;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.navbar h2 {
+    color: white;
+    margin: 0;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+
+/* ---------- Buttons ---------- */
+
+.btn {
+    display: inline-block;
+    padding: 9px 15px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    background: #2878a8;
+    color: white;
+    margin: 3px;
+    font-size: 14px;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+.btn-danger {
+    background: #d9534f;
+}
+
+.btn-success {
+    background: #3c8c40;
+}
+
+.btn-warning {
+    background: #d89b00;
+}
+
+.btn-secondary {
+    background: #6c757d;
+}
+
+.btn-dark {
+    background: #16324f;
+}
+
+
+/* ---------- Forms ---------- */
+
+form {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #16324f;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2878a8;
+    box-shadow: 0 0 4px rgba(40, 120, 168, 0.25);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+input[type="submit"],
+input[type="button"] {
+    cursor: pointer;
+}
+
+
+/* ---------- Tables ---------- */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background: #16324f;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+tr:hover {
+    background: #eef5fa;
+}
+
+
+/* ---------- Dashboard Cards ---------- */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2878a8;
+}
+
+
+/* ---------- Charts ---------- */
+
+.chart-container {
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.chart-container h2,
+.chart-container h3 {
+    margin-top: 0;
+}
+
+canvas {
+    max-width: 100%;
+}
+
+
+/* ---------- Detail Box ---------- */
+
+.detail-box {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    line-height: 1.8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.detail-box strong {
+    color: #16324f;
+}
+
+
+/* ---------- Action Area ---------- */
+
+.actions {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+
+/* ---------- Alerts / Flash Messages ---------- */
+
+.alert {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background: #e8f1ff;
+    border: 1px solid #b8d5f5;
+}
+
+.alert-success {
+    background: #e8f7e9;
+    border-color: #a8d5aa;
+    color: #27632a;
+}
+
+.alert-danger {
+    background: #fdeaea;
+    border-color: #efb5b5;
+    color: #9b2226;
+}
+
+.alert-warning {
+    background: #fff6dc;
+    border-color: #ead28a;
+    color: #765900;
+}
+
+
+/* ---------- Login Page ---------- */
+
+.login-container {
+    width: 100%;
+    max-width: 450px;
+    margin: 70px auto;
+}
+
+.login-container h1,
+.login-container h2 {
+    text-align: center;
+}
+
+.login-container form {
+    margin-top: 20px;
+}
+
+
+/* ---------- File Upload ---------- */
+
+input[type="file"] {
+    background: white;
+    padding: 10px;
+}
+
+
+/* ---------- Status Labels ---------- */
+
+.status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.status-recovered {
+    background: #dff3e1;
+    color: #26732a;
+}
+
+.status-treatment {
+    background: #fff0c7;
+    color: #795900;
+}
+
+.status-scheduled {
+    background: #dceeff;
+    color: #14577d;
+}
+
+.status-cancelled {
+    background: #f8d7da;
+    color: #842029;
+}
+
+
+/* ---------- Search / Filter ---------- */
+
+.filter-box {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ---------- Empty Data Message ---------- */
+
+.empty-message {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    color: #777;
+}
+
+
+/* ---------- Footer ---------- */
+
+footer {
+    margin-top: 50px;
+    padding: 20px;
+    text-align: center;
+    background: #16324f;
+    color: white;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+
+/* ---------- Responsive Design ---------- */
+
+@media (max-width: 900px) {
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar div {
+        margin-top: 10px;
+    }
+
+    .navbar a {
+        margin-left: 0;
+        margin-right: 15px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .container {
+        width: 95%;
+        margin: 20px auto;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar {
+        padding: 15px;
+    }
+
+    .navbar a {
+        display: inline-block;
+        margin-top: 8px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    th,
+    td {
+        padding: 8px;
+    }
+
+    form {
+        padding: 18px;
+    }
+
+    .actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn {
+        text-align: center;
+    }
+
+    .login-container {
+        width: 90%;
+        margin: 40px auto;
+    }
+}

@@ -1,0 +1,170 @@
+```html
+{% extends "base.html" %}
+
+{% if appointment %}
+    {% set page_title = "Edit Appointment" %}
+{% else %}
+    {% set page_title = "Schedule Appointment" %}
+{% endif %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ page_title }}</h1>
+
+<form
+    method="POST"
+    action="{% if appointment %}
+                {{ url_for('update_appointment', id=appointment.id) }}
+            {% else %}
+                {{ url_for('create_appointment') }}
+            {% endif %}"
+>
+
+    {% if appointment %}
+        <input
+            type="hidden"
+            name="_method"
+            value="PUT"
+        >
+    {% endif %}
+
+    <label>Patient</label>
+
+    <select name="patient_id" required>
+
+        <option value="">
+            Select Patient
+        </option>
+
+        {% for patient in patients %}
+
+        <option
+            value="{{ patient.id }}"
+            {% if appointment and appointment.patient_id == patient.id %}
+                selected
+            {% endif %}
+        >
+            {{ patient.name }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+
+    <label>Doctor</label>
+
+    <select name="doctor_id" required>
+
+        <option value="">
+            Select Doctor
+        </option>
+
+        {% for doctor in doctors %}
+
+        <option
+            value="{{ doctor.id }}"
+            {% if appointment and appointment.doctor_id == doctor.id %}
+                selected
+            {% endif %}
+        >
+            {{ doctor.name }} -
+            {{ doctor.specialization }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+
+    <label>Appointment Date</label>
+
+    <input
+        type="date"
+        name="date"
+        value="{{ appointment.date if appointment else '' }}"
+        required
+    >
+
+
+    <label>Diagnosis</label>
+
+    <textarea
+        name="diagnosis"
+        placeholder="Enter diagnosis"
+        required
+    >{{ appointment.diagnosis if appointment else '' }}</textarea>
+
+
+    <label>Status</label>
+
+    <select name="status" required>
+
+        <option value="">
+            Select Status
+        </option>
+
+        <option
+            value="Recovered"
+            {% if appointment and appointment.status == "Recovered" %}
+                selected
+            {% endif %}
+        >
+            Recovered
+        </option>
+
+        <option
+            value="Under Treatment"
+            {% if appointment and appointment.status == "Under Treatment" %}
+                selected
+            {% endif %}
+        >
+            Under Treatment
+        </option>
+
+        <option
+            value="Critical"
+            {% if appointment and appointment.status == "Critical" %}
+                selected
+            {% endif %}
+        >
+            Critical
+        </option>
+
+    </select>
+
+
+    <label>Recovery Date (Optional)</label>
+
+    <input
+        type="date"
+        name="recovery_date"
+        value="{{ appointment.recovery_date if appointment and appointment.recovery_date else '' }}"
+    >
+
+    <br><br>
+
+    <button
+        type="submit"
+        class="btn btn-success"
+    >
+        {% if appointment %}
+            Update Appointment
+        {% else %}
+            Schedule Appointment
+        {% endif %}
+    </button>
+
+    <a
+        href="{{ url_for('appointments') }}"
+        class="btn"
+    >
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}
+```
